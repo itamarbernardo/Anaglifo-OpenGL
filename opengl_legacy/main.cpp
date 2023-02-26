@@ -5,7 +5,6 @@
 #include<vector>
 
 #include"ObjLoader.h"
-#include "materiais.h"
 
 // Inicializar 
 void init(GLFWwindow* window);
@@ -35,7 +34,6 @@ void Desenha(float dt) {
 	float veloc_ang = 25.f*dt;
 	angulo += veloc_ang;
 	
-	copper.ativar();
 	glPushMatrix();
 		glTranslatef(0.f, 0.f, -25.f);
 		glRotatef(angulo, 1.f, 0.f, 0.f);
