@@ -1,0 +1,9 @@
+# Ignore as pastas a seguir
+v17
+FileContentIndex
+
+# Ignore todos esses arquivos
+.exe
+.bsc
+.pdb
+
