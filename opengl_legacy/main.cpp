@@ -18,9 +18,16 @@ void reSize(int w, int h);
 static float angulo = 0;
 static unsigned blenderModelId;
 
-void Desenha(float dt) {
+void Desenha(float dt, float x, float r = 0.0f, float g = 0.0f, float b = 0.0f) {
+
 
 	glLoadIdentity();
+
+
+	glColorMask(r, g, b, 1);
+
+	//glEnable(GL_COLOR_MATERIAL);
+
 
 	vec3 position(0.f, 0.f, 0.f);
 	vec3 direction(0.f, 0.f, -3.f);
@@ -35,15 +42,19 @@ void Desenha(float dt) {
 	angulo += veloc_ang;
 	
 	glPushMatrix();
-		glTranslatef(0.f, 0.f, -25.f);
-		glRotatef(angulo, 1.f, 0.f, 0.f);
-		glRotatef(-angulo, 0.f, 1.f, 0.f);
-		glRotatef(-angulo, 0.f, 0.f, 1.f);
+		glTranslatef(x, -8, 8.f);
 		glCallList(blenderModelId);
 	glPopMatrix();
 
+	//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	
+
+	// glColorMask(1, 0, 0, 1);
+
 	if (angulo >= 360.0)
 		angulo = 0.0;
+
+
 }
 
 int main() {
@@ -60,6 +71,7 @@ int main() {
 	while (running)
 	{
 		float currentTime = (float)glfwGetTime();
+
 		float dt = currentTime - lastTime;
 		lastTime = currentTime;
 
@@ -69,11 +81,31 @@ int main() {
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
 		reSize(width, height);
+		
 
 		// -- Draw Objects --
-		Desenha(dt);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
+		//Desenha o azul primeiro
+		Desenha(dt, -5.08, 0.0f, 0.0f, 1.0f);
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE);
+
+		glColorMask(GL_FALSE, GL_FALSE, GL_TRUE, GL_TRUE);
+		//glClearColor(0, 0, 0, 0);
+
+		Desenha(dt, -5, 1.0f, 0.0, 0.0);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glfwSwapBuffers(window);
+		glDisable(GL_BLEND);
+
 		running = !glfwWindowShouldClose(window);
 	}
 
@@ -88,7 +120,8 @@ void init(GLFWwindow* window) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, teclado_callback);
 
-	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClearColor(0, 0, 0, 0.f);
+
 
 	glEnable(GL_DEPTH_TEST);
 
