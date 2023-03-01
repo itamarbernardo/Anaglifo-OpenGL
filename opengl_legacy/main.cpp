@@ -83,42 +83,14 @@ int main() {
 		// -- Draw Objects --
 
 		Desenha(dt, -4.8, 0.0f, 0.0f, 1.0f);
-		
 
-		glfwSwapBuffers(window);
-		
-		running = !glfwWindowShouldClose(window);
-	}
-
-	glColorMask(1, 1, 1, 1);
-
-
-	glClearColor(0, 0, 0, 1);
-
-	running = true;
-
-	while (running)
-	{
-		float currentTime = (float)glfwGetTime();
-
-		float dt = currentTime - lastTime;
-
-		lastTime = currentTime;
-
-		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		int width, height;
-		glfwGetFramebufferSize(window, &width, &height);
-		reSize(width, height);
-
-		// -- Draw Objects --
+		glClearColor(0, 0, 0, 1);
 
 		Desenha(dt, -5, 1.0f, 0.0, 0.0);
-
+		
 
 		glfwSwapBuffers(window);
-
+		
 		running = !glfwWindowShouldClose(window);
 	}
 
