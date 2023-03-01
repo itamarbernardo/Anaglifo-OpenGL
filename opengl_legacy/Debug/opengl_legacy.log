@@ -1,7 +1,8 @@
 ﻿  main.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': redefinição de macro
 C:\glfw\include\GLFW\glfw3.h(123,1): message : consulte a definição anterior de 'APIENTRY'
-  ObjLoader.cpp
-C:\Users\Itamar Jr\Documents\Projeto Computacao Grafica\C ou C++\opengl_legacy\opengl_legacy\ObjLoader.cpp(88,20): warning C4018: '<': incompatibilidade de signed/unsigned
-  Gerando Código...
-  opengl_legacy.vcxproj -> C:\Users\Itamar Jr\Documents\Projeto Computacao Grafica\C ou C++\opengl_legacy\Debug\opengl_legacy.exe
+C:\Users\david\OneDrive\Área de Trabalho\Anaglifo-OpenGL\opengl_legacy\main.cpp(25,20): warning C4244: 'argumento': conversão de 'float' para 'GLboolean', possível perda de dados
+C:\Users\david\OneDrive\Área de Trabalho\Anaglifo-OpenGL\opengl_legacy\main.cpp(25,17): warning C4244: 'argumento': conversão de 'float' para 'GLboolean', possível perda de dados
+C:\Users\david\OneDrive\Área de Trabalho\Anaglifo-OpenGL\opengl_legacy\main.cpp(25,14): warning C4244: 'argumento': conversão de 'float' para 'GLboolean', possível perda de dados
+C:\Users\david\OneDrive\Área de Trabalho\Anaglifo-OpenGL\opengl_legacy\main.cpp(85,37): warning C4305: 'argumento': truncamento de 'double' para 'float'
+  opengl_legacy.vcxproj -> C:\Users\david\OneDrive\Área de Trabalho\Anaglifo-OpenGL\Debug\opengl_legacy.exe

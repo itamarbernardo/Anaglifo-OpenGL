@@ -18,9 +18,13 @@ void reSize(int w, int h);
 static float angulo = 0;
 static unsigned blenderModelId;
 
-void Desenha(float dt) {
+void Desenha(float dt, float x, float r = 0.0f, float g = 0.0f, float b = 0.0f) {
 
 	glLoadIdentity();
+
+	glColorMask(r, g, b, 1);
+
+	glEnable(GL_COLOR_MATERIAL);
 
 	vec3 position(0.f, 0.f, 0.f);
 	vec3 direction(0.f, 0.f, -3.f);
@@ -35,15 +39,20 @@ void Desenha(float dt) {
 	angulo += veloc_ang;
 	
 	glPushMatrix();
-		glTranslatef(0.f, 0.f, -25.f);
-		glRotatef(angulo, 1.f, 0.f, 0.f);
-		glRotatef(-angulo, 0.f, 1.f, 0.f);
-		glRotatef(-angulo, 0.f, 0.f, 1.f);
+		glTranslatef(x, -8, 8.f);
 		glCallList(blenderModelId);
 	glPopMatrix();
 
+
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	
+
+	// glColorMask(1, 0, 0, 1);
+
 	if (angulo >= 360.0)
 		angulo = 0.0;
+
+
 }
 
 int main() {
@@ -60,7 +69,40 @@ int main() {
 	while (running)
 	{
 		float currentTime = (float)glfwGetTime();
+
 		float dt = currentTime - lastTime;
+		lastTime = currentTime;
+
+		glfwPollEvents();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		int width, height;
+		glfwGetFramebufferSize(window, &width, &height);
+		reSize(width, height);
+		
+		// -- Draw Objects --
+
+		Desenha(dt, -4.8, 0.0f, 0.0f, 1.0f);
+		
+
+		glfwSwapBuffers(window);
+		
+		running = !glfwWindowShouldClose(window);
+	}
+
+	glColorMask(1, 1, 1, 1);
+
+
+	glClearColor(0, 0, 0, 1);
+
+	running = true;
+
+	while (running)
+	{
+		float currentTime = (float)glfwGetTime();
+
+		float dt = currentTime - lastTime;
+
 		lastTime = currentTime;
 
 		glfwPollEvents();
@@ -71,9 +113,12 @@ int main() {
 		reSize(width, height);
 
 		// -- Draw Objects --
-		Desenha(dt);
+
+		Desenha(dt, -5, 1.0f, 0.0, 0.0);
+
 
 		glfwSwapBuffers(window);
+
 		running = !glfwWindowShouldClose(window);
 	}
 
@@ -88,7 +133,8 @@ void init(GLFWwindow* window) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, teclado_callback);
 
-	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClearColor(0, 0, 0, 0.f);
+
 
 	glEnable(GL_DEPTH_TEST);
 
